@@ -71,10 +71,33 @@ subs = {
     "dollar": u"m\u00e9nage \u00e0 trois",
 }
 
+class ReadabilityAPI():
+    BASE_URI = 'https://readability.com/api/content/v1'
+    CONFIDENCE_RESOURCE = '/confidence'
+    PARSER_RESOURCE = '/parser'
+
+    def __init__(self):
+        self.token = os.environ['READABILITY_TOKEN']
+
+    def confidence(self, url):
+        resp = requests.get(self.BASE_URI + self.CONFIDENCE_RESOURCE,
+                            params={'url': url})
+        confidence = resp.json()['confidence']
+        return confidence
+
+    def parse(self, url):
+        if self.confidence(url) < 0.5:
+            return {}
+
+        resp = requests.get(self.BASE_URI + self.PARSER_RESOURCE,
+                            params={'url': url, 'token': self.token})
+        resp = resp.json()
+        return resp
+
 # For easier matching, lower-case and escape the dictionary keys.
 subs = dict((re.escape(k.lower()), v) for k, v in subs.iteritems())
 
-# TODO: Handle both spaces and dashes in certain words.
+# TODO: Handle both spaces and dashes for multi-word keys.
 pattern = re.compile("\\b" + "\\b|\\b".join(subs.keys()) + "\\b", flags=re.IGNORECASE)
 
 def xkcdify(content):
@@ -97,22 +120,15 @@ def index():
 
 @app.route('/generate', methods=('POST',))
 def generate():
+    readability = ReadabilityAPI()
     article_url = request.form['url']
-    readability_api = 'https://readability.com/api/content/v1/'
-    token = os.environ['READABILITY_TOKEN']
+    resp = readability.parse(article_url)
 
-    resp = requests.get(readability_api + 'confidence', params={'url': article_url})
-    confidence = resp.json()['confidence']
-
-    if confidence < 0.5:
+    if not resp:
         abort(403)
 
-    resp = requests.get(readability_api + 'parser', params={'url': article_url, 'token': token})
-    resp = resp.json()
-    original_title = resp['title']
-    original_content = resp['content']
-    xkcd_title = xkcdify(original_title)
-    xkcd_content = xkcdify(original_content)
+    xkcd_title = xkcdify(resp['title'])
+    xkcd_content = xkcdify(resp['content'])
 
     return render_template('xkcd_version.html', xkcd_title=Markup(xkcd_title), xkcd_content=Markup(xkcd_content))
 
