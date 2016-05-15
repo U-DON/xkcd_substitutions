@@ -99,14 +99,9 @@ pattern = re.compile("\\b" + "\\b|\\b".join(subs.keys()) + "\\b", flags=re.IGNOR
 
 def xkcdify(content):
     def sub(matchobj):
-        match = re.escape(matchobj.group())
-        if subs.has_key(match):
-            result = subs[match]
-        else:
-            # If the matched string wasn't a valid key, it's likely that the
-            # case-insensitive matching encountered an upper-case-containing
-            # form of a lower-case key.
-            result = subs[match.lower()]
+        match = matchobj.group()
+        key = re.escape(match)
+        result = subs[key.lower()]
         return "<span class=\"substitution\" title=\"" + match + "\">" + result + "</span>"
 
     return pattern.sub(sub, content)
