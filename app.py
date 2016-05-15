@@ -1,4 +1,4 @@
-from flask import Flask, Markup, render_template, request
+from flask import Flask, Markup, abort, render_template, request
 
 import requests
 
@@ -66,9 +66,6 @@ subs = {
     "meeting": u"m\u00e9nage \u00e0 trois",
     "scientists": "Channing Tatum and his friends",
     "you won't believe": "I'm really sad about",
-    # Test
-    "London": "blah",
-    "dollar": u"m\u00e9nage \u00e0 trois",
 }
 
 class ReadabilityAPI():
@@ -124,9 +121,10 @@ def generate():
     article_url = request.form['url']
     resp = readability.parse(article_url)
 
-    if not resp:
-        abort(403)
+    if not resp or resp.has_key('error') and resp['error']:
+        abort(400)
 
+    app.logger.debug(resp)
     xkcd_title = xkcdify(resp['title'])
     xkcd_content = xkcdify(resp['content'])
 
