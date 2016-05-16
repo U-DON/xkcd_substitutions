@@ -104,11 +104,13 @@ class ReadabilityAPI():
                             params={'url': url, 'token': self.token})
         return resp.json()
 
-# For easier matching, lower-case and escape the dictionary keys.
-subs = dict((re.escape(k.lower()), v) for k, v in subs.iteritems())
+pattern = "\\b" + "\\b|\\b".join(re.sub("[ -]", "[ -]", key) + ("(s|')?" if not key.endswith("s") else "'?") for key in subs.keys()) + "\\b"
+pattern = re.compile(pattern, flags=re.IGNORECASE)
 
-# TODO: Handle both spaces and dashes for multi-word keys.
-pattern = re.compile("\\b" + "\\b|\\b".join(subs.keys()) + "\\b", flags=re.IGNORECASE)
+# For easier matching, lower-case, space (if hyphenated), and escape the
+# dictionary keys.
+subs = dict((re.escape(k.lower().replace("-", " ")), v) \
+            for k, v in subs.iteritems())
 
 def xkcdify(content):
     """
@@ -119,8 +121,21 @@ def xkcdify(content):
     """
     def sub(matchobj):
         match = matchobj.group()
-        key = re.escape(match)
-        result = subs[key.lower()]
+        key = re.escape(match).lower().replace("-", " ")
+
+        # If the key doesn't exist, it's possible the pattern encountered the
+        # plural or possessive form of a key.
+        if subs.has_key(key):
+            result = subs[key]
+        elif subs.has_key(key.rstrip("'s")):
+            result = subs[key.rstrip("'s")]
+            if key.endswith("s"):
+                result = result + "s"
+            elif key.endswith("'"):
+                result = result + "'"
+        else:
+            return match
+
         return "<span class=\"substitution\" title=\"" + match + "\">" + result + "</span>"
 
     return pattern.sub(sub, content)
