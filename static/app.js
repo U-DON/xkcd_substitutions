@@ -1,7 +1,7 @@
 $(function () {
     $("#xkcd-form").submit(function (event) {
         event.preventDefault();
-        // Loading animation...
+        $("#content").html("<div class='loader'>Loading...</div>");
         $.get({
             url: "/generate",
             data: {
