@@ -93,30 +93,31 @@ p
 
 .loader
 {
-    margin: 120px auto 60px auto;
-    font-size: 20px;
-    position: relative;
-    text-indent: -9999em;
-    border-top: 1.1em solid rgba(68,68,68, 0.2);
-    border-right: 1.1em solid rgba(68,68,68, 0.2);
+    -ms-transform: translateZ(0);
+    -webkit-animation: load 1.1s infinite linear;
+    -webkit-transform: translateZ(0);
+    animation: load 1.1s infinite linear;
     border-bottom: 1.1em solid rgba(68,68,68, 0.2);
     border-left: 1.1em solid #444444;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
+    border-right: 1.1em solid rgba(68,68,68, 0.2);
+    border-top: 1.1em solid rgba(68,68,68, 0.2);
+    font-size: 20px;
+    margin: 120px auto 60px auto;
+    overflow: hidden;
+    position: relative;
+    text-indent: -9999em;
     transform: translateZ(0);
-    -webkit-animation: load8 1.1s infinite linear;
-    animation: load8 1.1s infinite linear;
 }
 
 .loader,
 .loader:after
 {
     border-radius: 50%;
-    width: 10em;
     height: 10em;
+    width: 10em;
 }
 
-@-webkit-keyframes load8
+@-webkit-keyframes load
 {
     0%
     {
@@ -130,7 +131,7 @@ p
     }
 }
 
-@keyframes load8
+@keyframes load
 {
     0%
     {
