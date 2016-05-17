@@ -68,11 +68,11 @@ subs = {
     "you won't believe": "I'm really sad about",
 }
 
-pattern = "\\b"
-          + "\\b|\\b".join(re.sub("[ -]", "[ -]", key)
-                           + ("(s|')?" if not key.endswith("s") else "'?") \
-                           for key in subs.keys())
-          + "\\b"
+pattern = ("\\b"
+           + "\\b|\\b".join(re.sub("[ -]", "[ -]", key)
+                            + ("(s|')?" if not key.endswith("s") else "'?") \
+                            for key in subs.keys())
+           + "\\b")
 pattern = re.compile(pattern, flags=re.IGNORECASE)
 
 # For easier matching, lower-case, space (if hyphenated), and escape the
@@ -105,11 +105,11 @@ def xkcdify(content):
         else:
             return match
 
-        return "<span class=\"substitution\" title=\""
-               + match
-               + "\">"
-               + result
-               + "</span>"
+        return ("<span class=\"substitution\" title=\""
+                + match
+                + "\">"
+                + result
+                + "</span>")
 
     return pattern.sub(sub, content)
 
