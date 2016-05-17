@@ -68,6 +68,52 @@ subs = {
     "you won't believe": "I'm really sad about",
 }
 
+pattern = "\\b"
+          + "\\b|\\b".join(re.sub("[ -]", "[ -]", key)
+                           + ("(s|')?" if not key.endswith("s") else "'?") \
+                           for key in subs.keys())
+          + "\\b"
+pattern = re.compile(pattern, flags=re.IGNORECASE)
+
+# For easier matching, lower-case, space (if hyphenated), and escape the
+# dictionary keys.
+subs = dict((re.escape(k.lower().replace("-", " ")), v) \
+            for k, v in subs.iteritems())
+
+
+def xkcdify(content):
+    """
+    Replace text within a string as specified by the xkcd Substitutions comics.
+
+    :param content: Original content with text to be replaced.
+    :returns: Resulting content after xkcd substitutions.
+    """
+    def sub(matchobj):
+        match = matchobj.group()
+        key = re.escape(match).lower().replace("-", " ")
+
+        # If the key doesn't exist, it's possible the pattern encountered the
+        # plural or possessive form of a key.
+        if subs.has_key(key):
+            result = subs[key]
+        elif subs.has_key(key.rstrip("'s")):
+            result = subs[key.rstrip("'s")]
+            if key.endswith("s"):
+                result = result + "s"
+            elif key.endswith("'"):
+                result = result + "'"
+        else:
+            return match
+
+        return "<span class=\"substitution\" title=\""
+               + match
+               + "\">"
+               + result
+               + "</span>"
+
+    return pattern.sub(sub, content)
+
+
 class ReadabilityAPI():
     """Wrapper for the Readability Parser API."""
 
@@ -104,45 +150,11 @@ class ReadabilityAPI():
                             params={'url': url, 'token': self.token})
         return resp.json()
 
-pattern = "\\b" + "\\b|\\b".join(re.sub("[ -]", "[ -]", key) + ("(s|')?" if not key.endswith("s") else "'?") for key in subs.keys()) + "\\b"
-pattern = re.compile(pattern, flags=re.IGNORECASE)
-
-# For easier matching, lower-case, space (if hyphenated), and escape the
-# dictionary keys.
-subs = dict((re.escape(k.lower().replace("-", " ")), v) \
-            for k, v in subs.iteritems())
-
-def xkcdify(content):
-    """
-    Replace text within a string as specified by the xkcd Substitutions comics.
-
-    :param content: Original content with text to be replaced.
-    :returns: Resulting content after xkcd substitutions.
-    """
-    def sub(matchobj):
-        match = matchobj.group()
-        key = re.escape(match).lower().replace("-", " ")
-
-        # If the key doesn't exist, it's possible the pattern encountered the
-        # plural or possessive form of a key.
-        if subs.has_key(key):
-            result = subs[key]
-        elif subs.has_key(key.rstrip("'s")):
-            result = subs[key.rstrip("'s")]
-            if key.endswith("s"):
-                result = result + "s"
-            elif key.endswith("'"):
-                result = result + "'"
-        else:
-            return match
-
-        return "<span class=\"substitution\" title=\"" + match + "\">" + result + "</span>"
-
-    return pattern.sub(sub, content)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/generate', methods=('POST',))
 def generate():
@@ -160,6 +172,7 @@ def generate():
     return render_template('xkcd_version.html',
                            xkcd_title=Markup(xkcd_title),
                            xkcd_content=Markup(xkcd_content))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
