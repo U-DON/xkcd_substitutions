@@ -156,10 +156,10 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/generate', methods=('POST',))
+@app.route('/generate')
 def generate():
     readability = ReadabilityAPI()
-    article_url = request.form['url']
+    article_url = request.args.get('url', '')
     resp = readability.parse(article_url)
 
     if not resp or resp.has_key('error') and resp['error']:

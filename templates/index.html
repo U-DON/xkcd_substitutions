@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% block content %}
+{% block header %}
+<div>
 <h1>xkcd Substitutions</h1>
-<form action="/generate" method="POST">
-<label for="url">URL</label>
-<input id="url" name="url" type="text" placeholder="Enter URL here..." />
-<button type="submit">Generate</button>
+<form id="xkcd-form" action="/generate" method="POST">
+    <input id="url" name="url" type="text" placeholder="Enter URL here..." />
+    <button type="submit">Generate</button>
 </form>
+</div>
 {% endblock %}
