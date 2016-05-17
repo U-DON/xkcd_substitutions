@@ -3,7 +3,7 @@ $(function () {
         event.preventDefault();
         $("#content").html("<div class='loader'>Loading...</div>");
         $.get({
-            url: "/generate",
+            url: "/xkcdify",
             data: {
                 url: $("#url").val()
             },

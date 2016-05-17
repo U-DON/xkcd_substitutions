@@ -111,6 +111,8 @@ def xkcdify(content):
                 + result
                 + "</span>")
 
+    # TODO: Use BeautifulSoup to replace only contents of elements.
+    #       Otherwise, the span tag can get into alt text...
     return pattern.sub(sub, content)
 
 
@@ -156,7 +158,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/generate')
+@app.route('/xkcdify')
 def generate():
     readability = ReadabilityAPI()
     article_url = request.args.get('url', '')
@@ -169,7 +171,7 @@ def generate():
     xkcd_title = xkcdify(resp['title'])
     xkcd_content = xkcdify(resp['content'])
 
-    return render_template('xkcd_version.html',
+    return render_template('xkcd.html',
                            xkcd_title=Markup(xkcd_title),
                            xkcd_content=Markup(xkcd_content))
 
