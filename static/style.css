@@ -62,7 +62,7 @@ header > div
     width: 640px;
 }
 
-#content > *
+#content *
 {
     max-width: 640px;
 }
