@@ -94,10 +94,9 @@ def xkcdify(content):
 
         # If the key doesn't exist, it's possible the pattern encountered the
         # plural or possessive form of a key.
-        # TODO: has_key() is deprecated; use `item in dict`
-        if subs.has_key(key):
+        if key in subs:
             result = subs[key]
-        elif subs.has_key(key.rstrip("'s")):
+        elif key.rstrip("'s") in subs:
             result = subs[key.rstrip("'s")]
             if key.endswith("s"):
                 result = result + "s"
