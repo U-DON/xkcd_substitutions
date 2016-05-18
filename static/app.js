@@ -10,7 +10,12 @@ $(function () {
             dataType: "html",
             success: function (data) {
                 $("#content").html(data);
-            }
+            },
+            error: function (xhr, status, error) {
+                $("#content").html("<h1>Whoops! Something went wrong...</h1>"
+                                   + "<p>Unable to complete your request.</p>");
+            },
+            timeout: 5000
         });
     });
 });
