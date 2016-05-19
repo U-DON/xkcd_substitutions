@@ -1,3 +1,6 @@
+from bs4 import BeautifulSoup
+from bs4.element import NavigableString
+
 import re
 
 subs = {
@@ -79,6 +82,9 @@ def xkcdify(content):
     """
     Replace text within a string as specified by the xkcd Substitutions comics.
 
+    This takes an HTML fragment and replaces the text accordingly, wrapping the
+    resulting substitutions in span tags.
+
     :param content: Original content with text to be replaced.
     :returns: Resulting content after xkcd substitutions.
     """
@@ -99,12 +105,38 @@ def xkcdify(content):
         else:
             return match
 
-        return ("<span class=\"substitution\" title=\""
-                + match
-                + "\">"
-                + result
-                + "</span>")
+        return result
 
-    # TODO: Use BeautifulSoup to replace only contents of elements.
-    #       Otherwise, the span tag can get into alt text...
-    return pattern.sub(sub, content)
+    # Get all the plain text strings in the document without their tags.
+    soup = BeautifulSoup(content, 'html.parser')
+    content_strings = [element for element in soup.recursiveChildGenerator() \
+                       if type(element) == NavigableString]
+
+    for string in content_strings:
+        # Use index to track where the current substring of plain text starts.
+        index = 0
+
+        # Use wrapper to string together plain text and span elements.
+        wrapper_tag = soup.new_tag('span')
+
+        # Upon each match, write to the wrapper the substitution result and the
+        # plain text preceding it. Then update index to the position after the
+        # matched substring to mark the start of the next plain text substring.
+        for m in pattern.finditer(string):
+            wrapper_tag.append(soup.new_string(string[index:m.start()]))
+            replacement = soup.new_tag('span',
+                                       title=m.group(),
+                                       **{'class': 'substitution'})
+            replacement.string = sub(m)
+            wrapper_tag.append(replacement)
+            index = m.end()
+
+        # Keep the original plain text unless substitutions were made.
+        if wrapper_tag.contents:
+            # Only append the rest of the string if substitutions were made,
+            # because we would otherwise be left with the full original string.
+            wrapper_tag.append(string[index:])
+            string.replace_with(wrapper_tag)
+            wrapper_tag.unwrap()
+
+    return unicode(soup)
