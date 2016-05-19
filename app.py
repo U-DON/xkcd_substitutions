@@ -30,8 +30,10 @@ def generate():
             if resp_json['error']:
                 error = resp_json['messages']
         except (KeyError, ValueError):
-            app.logger.error(e.msg)
-            app.logger.error(e.resp.text)
+            app.logger.error("Readability API encountered an issue. "
+                             + e.msg
+                             + "\n"
+                             + e.resp.text)
 
         # If the response didn't have any error messages, display a general
         # error message since it's likely the API is experiencing problems.
@@ -39,7 +41,7 @@ def generate():
             error = ("The service is having unexpected issues."
                      + "Please try again later.")
     except Exception as e:
-        app.logger.error(e)
+        app.logger.error("Unhandled exception: " + e)
         error = "Encountered an unknown error."
 
     if error:
