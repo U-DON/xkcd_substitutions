@@ -34,13 +34,18 @@ header > div
     align-items: center;
     display: flex;
     margin: 0 auto;
+    max-width: 100%;
     width: 780px;
 }
 
 .xkcd-font
 {
     font-family: xkcd;
-    font-size: 20px;
+}
+
+header .xkcd-font
+{
+    font-size: 0.5em;
 }
 
 #xkcd-form
@@ -53,6 +58,7 @@ header > div
 #xkcd-form input
 {
     border: 0;
+    box-sizing: padding-box;
     font-family: serif;
     height: 40px;
     padding: 0 10px;
@@ -69,6 +75,7 @@ header > div
     height: 40px;
     outline: none;
     padding: 0 10px;
+    width: 3em;
 }
 
 #xkcd-form button:hover
@@ -94,16 +101,21 @@ header > div
 #content
 {
     background: #f9f9f9;
+    box-sizing: padding-box;
+    color: #222222;
     flex: 1;
+    font-size: 16px;
+    line-height: 1.7em;
     margin: 0;
+    max-width: 100%;
     padding: 40px 80px;
     text-align: justify;
-    width: 640px;
+    width: 720px;
 }
 
 #content *
 {
-    max-width: 640px;
+    max-width: 100%;
 }
 
 #content figure
@@ -121,29 +133,37 @@ header > div
 #content h1
 {
     margin: 0 0 1em 0;
+    line-height: 1.7em;
+}
+
+figure
+{
+    font-size: 0.7em;
 }
 
 p
 {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 1em;
 }
 
 .substitution
 {
     background: yellow;
+    cursor: help;
     font-variant: small-caps;
     padding: 2px 4px;
     position: relative;
 }
 
-.substitution:hover:before
+.substitution:hover::before,
+.substitution:focus::before
 {
     background: #444444;
     color: #ffffff;
     content: attr(title);
     font-size: 14px;
     font-variant: normal;
+    font-weight: normal;
     left: 50%;
     line-height: 2em;
     padding: 0 1em;
@@ -151,10 +171,12 @@ p
     text-align: center;
     top: -2.5em;
     transform: translateX(-50%);
+    white-space: nowrap;
     z-index: 1000;
 }
 
-.substitution:hover:after
+.substitution:hover::after,
+.substitution:focus::after
 {
     border-width: 0.5em;
     border-style: solid;
