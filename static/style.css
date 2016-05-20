@@ -17,11 +17,6 @@ body
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p
-{
-    font-family: serif;
-}
-
 header
 {
     background: #6e7b91;
@@ -104,6 +99,7 @@ header .xkcd-font
     box-sizing: content-box;
     color: #222222;
     flex: 1;
+    font-family: serif;
     font-size: 16px;
     line-height: 1.75em;
     margin: 0;
@@ -139,7 +135,7 @@ header .xkcd-font
 
 figure
 {
-    font-size: 0.7em;
+    font-size: 0.75em;
 }
 
 p
