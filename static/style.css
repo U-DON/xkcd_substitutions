@@ -149,45 +149,54 @@ p
 
 .substitution
 {
-    background: yellow;
+    background: #99ddee;
     cursor: help;
+    display: inline-block;
     font-variant: small-caps;
-    padding: 0.25em 0.5em;
+    padding: 0.1em 0.5em;
     position: relative;
 }
 
-.substitution:hover::before,
-.substitution:focus::before
+.substitution::before,
+.substitution::after
 {
-    border-width: 0.5em;
-    border-style: solid;
-    border-color: #444444 transparent transparent transparent;
-    content: "";
     font-size: 14px;
-    height: 0;
-    left: calc(50% - 0.5em);
+    opacity: 0;
     position: absolute;
-    top: -0.5em;
-    width: 0;
+    transition: 0.1s ease;
+    transition-delay: 0ms;
     z-index: 1000;
 }
 
-.substitution:hover::after,
-.substitution:focus::after
+.substitution::before
+{
+    content: "";
+    border: 0.5em solid transparent;
+    border-top-color: #444444;
+    height: 0;
+    left: calc(50% - 0.5em);
+    top: -0.5em;
+    width: 0;
+}
+
+.substitution::after
 {
     background: #444444;
     color: #ffffff;
     content: attr(title);
-    font-size: 14px;
     font-variant: normal;
     font-weight: normal;
     left: 50%;
     line-height: 2em;
     padding: 0 1em;
-    position: absolute;
     text-align: center;
     top: -2.5em;
     transform: translateX(-50%);
     white-space: nowrap;
-    z-index: 1000;
+}
+
+.substitution:hover::before,
+.substitution:hover::after
+{
+    opacity: 0.9;
 }
