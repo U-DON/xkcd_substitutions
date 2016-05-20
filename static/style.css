@@ -57,7 +57,7 @@ header .xkcd-font
     font-family: serif;
     height: 40px;
     padding: 0 10px;
-    width: 360px;
+    width: 420px;
 }
 
 #xkcd-form button
@@ -75,12 +75,12 @@ header .xkcd-font
 
 #xkcd-form button:hover
 {
-    background: #e7e7e7;
+    box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.1);
 }
 
 #xkcd-form button:active
 {
-    background: #dddddd;
+    background: #e0e0e0;
 }
 
 #content-wrapper
