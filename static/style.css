@@ -33,6 +33,11 @@ header > div
     width: 800px;
 }
 
+header h1
+{
+    font-family: Helvetica, Arial, Sans-Serif;
+}
+
 .xkcd-font
 {
     font-family: xkcd;
@@ -58,6 +63,11 @@ header .xkcd-font
     height: 40px;
     padding: 0 10px;
     width: 420px;
+}
+
+#xkcd-form input:focus
+{
+    box-shadow: 0 0 2px 1px #99ddee;
 }
 
 #xkcd-form button
@@ -101,7 +111,7 @@ header .xkcd-font
     flex: 1;
     font-family: serif;
     font-size: 16px;
-    line-height: 1.75em;
+    line-height: 2em;
     margin: 0;
     margin-left: calc(100vw - 100%);
     max-width: 100%;
@@ -129,8 +139,13 @@ header .xkcd-font
 
 #content h1
 {
-    margin: 0 0 1em 0;
-    line-height: 1.75em;
+    margin: 0 0 0.5em 0;
+    line-height: 2em;
+}
+
+#content a
+{
+    color: #6e7b91;
 }
 
 figure
@@ -145,11 +160,12 @@ p
 
 .substitution
 {
-    background: #99ddee;
+    background: #a5e9fa;
     cursor: help;
     display: inline-block;
     font-variant: small-caps;
-    padding: 0.1em 0.5em;
+    line-height: 1em;
+    padding: 0.25em 0.5em;
     position: relative;
 }
 
