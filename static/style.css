@@ -158,6 +158,22 @@ p
 .substitution:hover::before,
 .substitution:focus::before
 {
+    border-width: 0.5em;
+    border-style: solid;
+    border-color: #444444 transparent transparent transparent;
+    content: "";
+    font-size: 14px;
+    height: 0;
+    left: calc(50% - 0.5em);
+    position: absolute;
+    top: -0.5em;
+    width: 0;
+    z-index: 1000;
+}
+
+.substitution:hover::after,
+.substitution:focus::after
+{
     background: #444444;
     color: #ffffff;
     content: attr(title);
@@ -172,21 +188,5 @@ p
     top: -2.5em;
     transform: translateX(-50%);
     white-space: nowrap;
-    z-index: 1000;
-}
-
-.substitution:hover::after,
-.substitution:focus::after
-{
-    border-width: 0.5em;
-    border-style: solid;
-    border-color: #444444 transparent transparent transparent;
-    content: "";
-    font-size: 14px;
-    height: 0;
-    left: calc(50% - 0.5em);
-    position: absolute;
-    top: -0.5em;
-    width: 0;
     z-index: 1000;
 }
