@@ -11,7 +11,7 @@ $(function () {
         $.get({
             url: "/xkcdify",
             data: {
-                url: $("#url").val()
+                url: $("#url-input").val()
             },
             dataType: "html",
             success: function (data) {

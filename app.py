@@ -11,7 +11,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/xkcdify')
-def generate():
+def xkcdify():
     readability = ReadabilityAPI()
     article_url = request.args.get('url', '')
     error = None
