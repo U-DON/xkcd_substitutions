@@ -1,17 +1,31 @@
 {% extends "base.html" %}
 {% block header %}
 <div>
-<h1>xkcd <span class="xkcd-font">Substitutions</span></h1>
-<form id="xkcd-form" action="/generate" method="POST">
-    <input id="url" name="url" type="text" placeholder="Enter URL here..." />
-    <button type="submit">
-        <i class="fa fa-file-text" aria-hidden="true"></i>
-        <span class="sr-only">Generate</span>
-    </button>
-</form>
+    <h1 id="logo">
+        <a href="{{ url_for('index') }}">xkcd <span class="xkcd-font">Substitutions</span></a>
+    </h1>
+    <form id="xkcd-form" action="/generate" method="POST">
+        <input id="url" name="url" type="text" placeholder="Enter URL here..." />
+        <button type="submit">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+            <span class="sr-only">Generate</span>
+        </button>
+    </form>
 </div>
 {% endblock %}
 {% block content %}
 <h1>What is this?</h1>
-<p>Some blurb about how this works...</p>
+<p>Is the news boring to read? Here's a little thingy that makes reading the news more fun.</p>
+<p>The idea comes from a particular series of comics from <a href="https://xkcd.com/">xkcd</a>. Hence, "xkcd Substitutions".</p>
+<p>
+    <a href="https://xkcd.com/1288/">Link 1</a>
+    <a href="https://xkcd.com/1625/">Link 2</a>
+    <a href="https://xkcd.com/1679/">Link 3</a>
+</p>
+<h1>How does it work?</h1>
+<ol>
+    <li>Copy and paste an article URL into the text box.</li>
+    <li>Enter or click the button to process the article.</li>
+    <li>Have fun reading the resulting article with the words replaced!</li>
+</ol>
 {% endblock %}

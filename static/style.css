@@ -33,9 +33,20 @@ header > div
     width: 800px;
 }
 
-header h1
+#logo
 {
     font-family: Helvetica, Arial, Sans-Serif;
+}
+
+#logo > a
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#logo .xkcd-font
+{
+    font-size: 0.5em;
 }
 
 .xkcd-font
@@ -43,14 +54,11 @@ header h1
     font-family: xkcd;
 }
 
-header .xkcd-font
-{
-    font-size: 0.5em;
-}
-
 #xkcd-form
 {
     flex-grow: 1;
+    font-family: Helvetica, Arial, Sans-Serif;
+    font-size: 14px;
     margin-left: auto;
     text-align: right;
 }
@@ -59,7 +67,6 @@ header .xkcd-font
 {
     border: 0;
     box-sizing: padding-box;
-    font-family: serif;
     height: 40px;
     padding: 0 10px;
     width: 420px;
@@ -67,7 +74,7 @@ header .xkcd-font
 
 #xkcd-form input:focus
 {
-    box-shadow: 0 0 2px 1px #99ddee;
+    box-shadow: inset 0 0 1px 1px #99ddee;
 }
 
 #xkcd-form button
@@ -76,7 +83,6 @@ header .xkcd-font
     border: 0;
     cursor: pointer;
     float: right;
-    font-family: serif;
     height: 40px;
     outline: none;
     padding: 0 10px;
@@ -109,7 +115,7 @@ header .xkcd-font
     box-sizing: content-box;
     color: #222222;
     flex: 1;
-    font-family: serif;
+    font-family: "Times New Roman", serif;
     font-size: 16px;
     line-height: 2em;
     margin: 0;
@@ -125,18 +131,6 @@ header .xkcd-font
     max-width: 100%;
 }
 
-#content figure
-{
-    margin: 0;
-    padding: 0;
-}
-
-#content pre
-{
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
 #content h1
 {
     margin: 0 0 0.5em 0;
@@ -147,15 +141,33 @@ header .xkcd-font
 {
     color: #6e7b91;
 }
-
-figure
+#content figure
 {
     font-size: 0.75em;
+    margin: 0;
+    padding: 0;
 }
 
-p
+#content ol,
+#content ul
+{
+    padding: 0 2em;
+}
+
+#content li
+{
+    padding-left: 0.5em;
+}
+
+#content p
 {
     font-size: 1em;
+}
+
+#content pre
+{
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .substitution
