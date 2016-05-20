@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block header %}
 <div>
-<h1>xkcd Substitutions</h1>
+<h1>xkcd <span class="xkcd-font">Substitutions</span></h1>
 <form id="xkcd-form" action="/generate" method="POST">
     <input id="url" name="url" type="text" placeholder="Enter URL here..." />
-    <button type="submit">Generate</button>
+    <button type="submit">
+        <i class="fa fa-file-text" aria-hidden="true"></i>
+        <span class="sr-only">Generate</span>
+    </button>
 </form>
 </div>
 {% endblock %}
