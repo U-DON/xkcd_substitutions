@@ -10,7 +10,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html', examples=xkcd.examples)
 
-@app.route('/xkcdify')
+@app.route('/xkcdify/')
 def xkcdify():
     readability = ReadabilityAPI()
     article_url = request.args.get('url', '')
@@ -47,9 +47,14 @@ def xkcdify():
     if error:
         return render_template('error.html', error=error)
 
-    return render_template('xkcd.html',
-                           xkcd_title=Markup(xkcd_title),
-                           xkcd_content=Markup(xkcd_content))
+    content = render_template('xkcd.html',
+                              xkcd_title=Markup(xkcd_title),
+                              xkcd_content=Markup(xkcd_content))
+
+    if request.is_xhr:
+        return content
+
+    return render_template('base.html', content=Markup(content))
 
 if __name__ == '__main__':
     app.run(debug=True)
