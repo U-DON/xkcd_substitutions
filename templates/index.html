@@ -6,7 +6,7 @@
     </h1>
     <form id="xkcd-form" action="/generate" method="POST">
         <input id="url-input" name="url" type="text" placeholder="Enter URL here..." />
-        <button type="submit">
+        <button type="submit" autocomplete="off">
             <i class="fa fa-file-text" aria-hidden="true"></i>
             <span class="sr-only">Generate</span>
         </button>
@@ -14,18 +14,50 @@
 </div>
 {% endblock %}
 {% block content %}
-<h1>What is this?</h1>
-<p>Is the news boring to read? Here's a little thingy that makes reading the news more fun.</p>
-<p>The idea comes from a particular series of comics from <a href="https://xkcd.com/">xkcd</a>. Hence, "xkcd Substitutions".</p>
-<p>
-    <a href="https://xkcd.com/1288/">Link 1</a>
-    <a href="https://xkcd.com/1625/">Link 2</a>
-    <a href="https://xkcd.com/1679/">Link 3</a>
-</p>
-<h1>How does it work?</h1>
-<ol>
-    <li>Copy and paste an article URL into the text box.</li>
-    <li>Enter or click the button to process the article.</li>
-    <li>Have fun reading the resulting article with the words replaced!</li>
-</ol>
+<div id="intro">
+    <section>
+        <h1>What Is This?</h1>
+        <p>Is the news boring to read? Here's a little thingy that makes reading the news more fun.</p>
+        <p>The idea comes from a particular series of comics from <a href="https://xkcd.com/">xkcd</a>. Hence, "xkcd Substitutions".</p>
+        <p>
+            <a href="https://xkcd.com/1288/">Link 1</a>
+            <a href="https://xkcd.com/1625/">Link 2</a>
+            <a href="https://xkcd.com/1679/">Link 3</a>
+        </p>
+    </section>
+    <section>
+        <h1>How Does It Work?</h1>
+        <ol>
+            <li>Copy and paste an article URL into the text box.</li>
+            <li>Enter or click the button to process the article.</li>
+            <li>Have fun reading the resulting article with the words replaced!</li>
+        </ol>
+    </section>
+    {% if examples %}
+    <section>
+        <h1>Examples</h1>
+        <p>Not sure where to start? Try using some of these articles.</p>
+        {% for example in examples %}
+        <hr>
+        <div class="example">
+            <h3>
+                <span class="old-title">{{ example['old_title'] }}</span>
+                <span class="new-title">{{ example['new_title'] }}</span>
+            </h3>
+            <a href="{{ example['url'] }}">{{ example['url'] }}</a>
+            <div class="controls">
+                <button class="preview" type="button" autocomplete="off">
+                    <i class="fa fa-eye"></i>
+                    <span>Preview</span>
+                </button>
+                <button class="convert" type="button">
+                    <i class="fa fa-clipboard"></i>
+                    <span>Convert Full Article</span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</div>
 {% endblock %}

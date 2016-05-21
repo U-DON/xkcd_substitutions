@@ -41,6 +41,7 @@ header > div
 #logo > a
 {
     color: #ffffff;
+    outline: none;
     text-decoration: none;
 }
 
@@ -79,24 +80,49 @@ header > div
 
 #xkcd-form button
 {
-    background: #eeeeee;
-    border: 0;
-    cursor: pointer;
     float: right;
     height: 40px;
-    outline: none;
     padding: 0 10px;
     width: 3em;
 }
 
-#xkcd-form button:hover
+#xkcd-form button:disabled
+{
+    background: #eeeeee;
+}
+
+button
+{
+    background: #eeeeee;
+    border: 1px solid transparent;
+    color: #444444;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica, Arial, Sans-Serif;
+    font-size: 14px;
+    padding: 0.5em 1em;
+    text-decoration: none;
+}
+
+button:active
+{
+    background: #e0e0e0;
+}
+
+button:hover
 {
     box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.1);
 }
 
-#xkcd-form button:active
+button:disabled
 {
-    background: #e0e0e0;
+    background: #cccccc;
+    cursor: default;
+}
+
+button:disabled:hover
+{
+    box-shadow: none;
 }
 
 #content-wrapper
@@ -112,6 +138,7 @@ header > div
 #content
 {
     background: #f9f9f9;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
     box-sizing: content-box;
     color: #222222;
     flex: 1;
@@ -141,6 +168,7 @@ header > div
 {
     color: #6e7b91;
 }
+
 #content figure
 {
     font-size: 0.75em;
@@ -168,6 +196,25 @@ header > div
 {
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+#intro section
+{
+    width: 100%;
+}
+
+#intro section:nth-of-type(2)
+{
+    background: rgba(130, 180, 220, 0.2);
+    margin: 2em 0 1em -80px;
+    padding: 1em 80px;
+}
+
+hr
+{
+    background-color: #dddddd;
+    border: 0;
+    height: 1px;
 }
 
 .substitution
@@ -223,4 +270,29 @@ header > div
 .substitution:hover::after
 {
     opacity: 0.9;
+}
+
+.example .new-title
+{
+    display: none;
+}
+
+.example .controls
+{
+    margin: 1em 0 1.5em;
+}
+
+.example .controls button > span
+{
+    margin-left: 0.5em;
+}
+
+.example .controls button + button
+{
+    margin-left: 0.5em;
+}
+
+.example h3
+{
+    margin-bottom: 0.5em;
 }

@@ -1,4 +1,17 @@
 $(function () {
+    $(".preview").click(function () {
+        var example = $(this).closest(".example");
+        example.find("span.old-title").hide();
+        example.find("span.new-title").show();
+        this.disabled = true;
+    });
+
+    $(".convert").click(function () {
+        var url = $(this).parent().siblings("a").attr("href");
+        $("#url-input").val(url);
+        $("#xkcd-form").submit();
+    });
+
     $("#xkcd-form").submit(function (e) {
         e.preventDefault();
         var loader = $("<span>"

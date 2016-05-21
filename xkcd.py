@@ -1,3 +1,5 @@
+from flask import Markup
+
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
 
@@ -77,6 +79,21 @@ pattern = re.compile(pattern, flags=re.IGNORECASE)
 subs = dict((re.escape(k.lower().replace("-", " ")), v) \
             for k, v in subs.iteritems())
 
+# List of examples to display on the front page.
+examples = [
+    {
+        'url': "http://www.businessinsider.com/report-10-million-self-driving-cars-will-be-on-the-road-by-2020-2015-5-6",
+        'old_title': "10 million self-driving cars will be on the road by 2020"
+    },
+    {
+        'url': "http://www.wired.com/2011/05/ucsd-skeleton-fight/",
+        'old_title': "Scientists Fight University of California to Study Rare Ancient Skeletons"
+    },
+    {
+        'url': "http://www.npr.org/2016/01/28/464640980/the-last-candidate-to-skip-the-final-iowa-debate-ronald-reagan",
+        'old_title': "The Last Candidate To Skip The Final Iowa Debate? Ronald Reagan"
+    }
+];
 
 def xkcdify(content):
     """
@@ -140,3 +157,6 @@ def xkcdify(content):
             wrapper_tag.unwrap()
 
     return unicode(soup)
+
+for example in examples:
+    example['new_title'] = Markup(xkcdify(example['old_title']))
