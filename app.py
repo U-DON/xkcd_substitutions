@@ -2,7 +2,7 @@ from flask import Flask, Markup, abort, render_template, request
 
 from readability import ReadabilityError, ConfidenceError, ReadabilityAPI
 
-from xkcd import xkcdify
+import xkcd
 
 app = Flask(__name__)
 
@@ -18,8 +18,8 @@ def xkcdify():
 
     try:
         resp = readability.parse(article_url)
-        xkcd_title = xkcdify(resp['title'])
-        xkcd_content = xkcdify(resp['content'])
+        xkcd_title = xkcd.xkcdify(resp['title'])
+        xkcd_content = xkcd.xkcdify(resp['content'])
     except ConfidenceError as e:
         error = ("Looks like the content at the URL won't work well."
                  + "Try a different URL!")
