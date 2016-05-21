@@ -1,6 +1,6 @@
 $(function () {
-    $("#xkcd-form").submit(function (event) {
-        event.preventDefault();
+    $("#xkcd-form").submit(function (e) {
+        e.preventDefault();
         var loader = $("<span>"
                        + "<i class='fa fa-refresh fa-spin'></i>"
                        + "<span class='sr-only'>Loading...</span>"
@@ -8,6 +8,7 @@ $(function () {
         var button = $("#xkcd-form button");
         button.children().hide();
         button.append(loader);
+        button.prop("disabled", true);
         $.get({
             url: "/xkcdify",
             data: {
@@ -33,6 +34,7 @@ $(function () {
         }).complete(function () {
             loader.remove();
             button.children().show();
+            button.prop("disabled", false);
         });
     });
 });
