@@ -6,14 +6,19 @@
 
 body
 {
+    -ms-flex-align: center;
+    -webkit-box-align: center;
     align-items: center;
     background: #96a8c8;
+    display: -ms-flexbox;
+    display: -webkit-box;
     display: flex;
+    -ms-flex-direction: column;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
     flex-direction: column;
     margin: 0;
     min-height: 100vh;
-    height: 100vh;
-    max-height: 100vh;
     padding: 0;
 }
 
@@ -21,12 +26,20 @@ header
 {
     background: #6e7b91;
     color: #ffffff;
+    left: 0;
+    height: 80px;
+    position: fixed;
     width: 100%;
+    z-index: 1;
 }
 
 header > div
 {
+    -ms-flex-align: center;
+    -webkit-box-align: center;
     align-items: center;
+    display: -ms-flexbox;
+    display: -webkit-box;
     display: flex;
     margin: 0 auto;
     max-width: 100%;
@@ -57,10 +70,11 @@ header > div
 
 #xkcd-form
 {
+    -ms-flex-positive: 1;
+    -webkit-box-flex: 1;
     flex-grow: 1;
     font-family: Helvetica, Arial, Sans-Serif;
     font-size: 14px;
-    margin-left: auto;
     text-align: right;
 }
 
@@ -127,11 +141,21 @@ button:disabled:hover
 
 #content-wrapper
 {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-box-align: center;
     align-items: center;
-    overflow-y: auto;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-positive: 1;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -ms-flex-direction: column;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    margin-top: 80px;
+    padding: 0;
     width: 100%;
 }
 
@@ -141,12 +165,13 @@ button:disabled:hover
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
     box-sizing: content-box;
     color: #222222;
-    flex: 1;
+    -ms-flex-positive: 1;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
     font-family: "Times New Roman", serif;
     font-size: 16px;
     line-height: 2em;
     margin: 0;
-    margin-left: calc(100vw - 100%);
     max-width: 100%;
     padding: 40px 80px;
     text-align: justify;
@@ -262,6 +287,8 @@ hr
     padding: 0 1em;
     text-align: center;
     top: -2.5em;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
     transform: translateX(-50%);
     white-space: nowrap;
 }
