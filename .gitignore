@@ -1,4 +1,7 @@
-# Vim swap files.
+# Environment variables
+.env
+
+# Vim swap files
 *.swp
 
 # Byte-compiled / optimized / DLL files
