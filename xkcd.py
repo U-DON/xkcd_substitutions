@@ -105,19 +105,19 @@ def xkcdify(content):
     :param content: Original content with text to be replaced.
     :returns: Resulting content after xkcd substitutions.
     """
+
     def sub(matchobj):
         match = matchobj.group()
-        key = re.escape(match).lower().replace("-", " ")
+        key = re.escape(match.lower().replace("-", " ").rstrip("'s"))
 
-        # If the key doesn't exist, it's possible the pattern encountered the
-        # plural or possessive form of a key.
         if key in subs:
             result = subs[key]
-        elif key.rstrip("'s") in subs:
-            result = subs[key.rstrip("'s")]
-            if key.endswith("s"):
+
+            # If the pattern encountered a match that's the plural or
+            # possessive form of a key, modify the return value accordingly.
+            if match.endswith("s"):
                 result = result + "s"
-            elif key.endswith("'"):
+            elif match.endswith("'"):
                 result = result + "'"
         else:
             return match
