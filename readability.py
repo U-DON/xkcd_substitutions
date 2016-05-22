@@ -19,7 +19,7 @@ class ConfidenceError(Exception):
     pass
 
 
-class ReadabilityAPI():
+class ReadabilityAPI(object):
     """Wrapper for the Readability Parser API."""
 
     BASE_URI = 'https://readability.com/api/content/v1'
