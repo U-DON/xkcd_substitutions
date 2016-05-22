@@ -43,7 +43,7 @@ header > div
     display: flex;
     margin: 0 auto;
     max-width: 100%;
-    width: 800px;
+    width: 860px;
 }
 
 #logo
@@ -84,7 +84,7 @@ header > div
     box-sizing: padding-box;
     height: 40px;
     padding: 0 1em;
-    width: 420px;
+    width: 480px;
 }
 
 #url-input:focus:-moz-placeholder
@@ -189,13 +189,12 @@ button:disabled:hover
     -webkit-box-flex: 1;
     flex-grow: 1;
     font-family: "Times New Roman", serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 2em;
     margin: 0;
     max-width: 100%;
     padding: 40px 80px;
-    text-align: justify;
-    width: 720px;
+    width: 740px;
 }
 
 #content *
@@ -205,8 +204,34 @@ button:disabled:hover
 
 #content h1
 {
+    font-size: 1.75em;
     margin: 0 0 0.5em 0;
     line-height: 2em;
+}
+
+#content h2
+{
+    font-size: 1.5em;
+}
+
+#content h3
+{
+    font-size: 1.25em;
+}
+
+#content h4
+{
+    font-size: 1em;
+}
+
+#content h5
+{
+    font-size: 0.75em;
+}
+
+#content h6
+{
+    font-size: 0.5em;
 }
 
 #content a
@@ -276,7 +301,7 @@ hr
 .substitution::before,
 .substitution::after
 {
-    font-size: 14px;
+    font-size: 16px;
     opacity: 0;
     position: absolute;
     transition: 0.1s ease;
