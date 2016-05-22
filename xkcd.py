@@ -120,7 +120,7 @@ def xkcdify(content):
             elif match.endswith("'"):
                 result = result + "'"
         else:
-            return match
+            return ""
 
         return result
 
@@ -139,16 +139,19 @@ def xkcdify(content):
         # Upon each match, write to the wrapper the substitution result and the
         # plain text preceding it. Then update index to the position after the
         # matched substring to mark the start of the next plain text substring.
-        for m in pattern.finditer(string):
-            wrapper_tag.append(soup.new_string(string[index:m.start()]))
+        for match in pattern.finditer(string):
+            wrapper_tag.append(soup.new_string(string[index:match.start()]))
             replacement = soup.new_tag('span',
                                        **{
                                            'class': 'substitution',
-                                           'data-tooltip': m.group()
+                                           'data-tooltip': match.group()
                                        })
-            replacement.string = sub(m)
-            wrapper_tag.append(replacement)
-            index = m.end()
+            replacement.string = sub(match)
+            if replacement.string:
+                wrapper_tag.append(replacement)
+            else:
+                wrapper_tag.append(soup.new_string(match.group()))
+            index = match.end()
 
         # Keep the original plain text unless substitutions were made.
         if wrapper_tag.contents:
