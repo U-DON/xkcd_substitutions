@@ -1,10 +1,20 @@
 from flask import Flask, Markup, abort, render_template, request
 
+import config
 from readability import ReadabilityError, ConfidenceError, ReadabilityAPI
-
 import xkcd
 
+import os
+
 app = Flask(__name__)
+
+configs = {
+    'development': config.DevelopmentConfig,
+    'production': config.ProductionConfig
+}
+
+env = os.environ['APP_ENV']
+app.config.from_object(configs[env])
 
 @app.route('/')
 def index():
@@ -57,4 +67,4 @@ def xkcdify():
     return render_template('base.html', content=Markup(content))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
