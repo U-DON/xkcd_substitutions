@@ -142,8 +142,10 @@ def xkcdify(content):
         for m in pattern.finditer(string):
             wrapper_tag.append(soup.new_string(string[index:m.start()]))
             replacement = soup.new_tag('span',
-                                       title=m.group(),
-                                       **{'class': 'substitution'})
+                                       **{
+                                           'class': 'substitution',
+                                           'data-tooltip': m.group()
+                                       })
             replacement.string = sub(m)
             wrapper_tag.append(replacement)
             index = m.end()

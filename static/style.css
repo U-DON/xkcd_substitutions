@@ -324,7 +324,7 @@ hr
 {
     background: #444444;
     color: #ffffff;
-    content: attr(title);
+    content: attr(data-tooltip);
     font-variant: normal;
     font-weight: normal;
     left: 50%;
