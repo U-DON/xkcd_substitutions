@@ -108,11 +108,16 @@ def xkcdify(content):
 
     def sub(matchobj):
         match = matchobj.group()
-        key = re.escape(match.lower().replace("-", " ").rstrip("'s"))
+        key = match.lower().replace("-", " ")
+        key1 = re.escape(key)
+        key2 = re.escape(key.rstrip("'s"))
 
-        if key in subs:
-            result = subs[key]
-
+        # First, check if the match has a substitution.
+        # If it doesn't, check as if the match were plural or possessive.
+        if key1 in subs:
+            result = subs[key1]
+        elif key2 in subs:
+            result = subs[key2]
             # If the pattern encountered a match that's the plural or
             # possessive form of a key, modify the return value accordingly.
             if match.endswith("s"):
